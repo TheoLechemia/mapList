@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+ <meta charset="UTF-8"> 
+<head>
+
+	<title>Validation BDN</title>
+
+	<!-- Jquery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+
+<!-- Datatable -->
+
+<link rel="stylesheet" type="text/css" href="{{url_for('mapList.static', filename='lib/datatable/css/dataTables.bootstrap.css') }}">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+<!-- Leaflet -->
+<script src="{{url_for('mapList.static', filename='lib/leaflet/leaflet.js') }}"></script>
+<link rel="stylesheet" href="{{url_for('mapList.static', filename='lib/leaflet/leaflet.css') }}" />	
+
+
+<!-- page css-->
+ <link rel="stylesheet" href="{{url_for('mapList.static', filename='css/index.css') }}">
+
+
+
+
+
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Interface de validation des données naturalistes - ONF</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+<div class="container-fluid" id="page">
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<div class="panel panel-default stat-panel">
+
+			
+
+		<h4> Liste des taxons non validés </h4>
+			<p id=action> </p>
+			<table id="table_id" class="display table">
+			        <thead>
+			            <tr>
+			               <th> </th>
+			                <th>ID</th>
+			                <th>Protocole</th>
+			                <th>Nom Vernaculaire</th>
+			                <th>Nom Scientifique</th>
+			                <th>Date</th>
+			                <th>Observateur</th>
+			                <th>  </th>
+			                <th> </th>
+			                <th> </th>
+			            </tr>
+					</thead>
+					<tbody>
+            		{% for taxon in taxList %}
+						<tr class="taxonRow" idSynthese="{{taxon[0]}}"> 
+							<td> <input type="checkbox"> </td>
+							<td> {{taxon[0]}} </td>
+							<td> {{taxon[1]}} </td>
+							<td> {{taxon[2]}} </td>
+							<td> <a target="_blank" href= 'https://inpn.mnhn.fr/espece/cd_nom/{{taxon[6]}}' > {{taxon[3]}} </a> </td>
+							<td> {{taxon[4]}} </td>
+							<td> {{taxon[5]}} </td>
+							<td class="search"> <span class="glyphicon glyphicon-search " style="cursor:pointer;"> </span> </td>
+							<td class="validate"> <span class="glyphicon glyphicon-ok " style="color:green; cursor:pointer;"> </span> </td>
+							<td class="delete"> <span class="glyphicon glyphicon-remove " style="color:red; cursor:pointer;"> </span> </td>
+						</tr>
+					{% endfor %}
+					</tbody>
+			</table>
+			<button class="btn btn-success">  Valider <span class="glyphicon glyphicon-ok "></span> </button>
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+		<div id=map style="height: 800px"> </div>
+
+	</div>
+
+</div>
+
+<script type="text/javascript"> var URL_APPLICATION= {{URL_APPLICATION|tojson}}; 
+								console.log(URL_APPLICATION);
+</script>
+
+<script type="text/javascript" src="{{url_for('mapList.static', filename='main.js') }}"> </script>
+
+</body>
+</html>
