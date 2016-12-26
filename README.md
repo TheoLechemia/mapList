@@ -7,4 +7,5 @@
 
 
 Doc to in construction...
+* Can be use as a Flask submodule
 
